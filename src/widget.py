@@ -1,4 +1,5 @@
 from datetime import datetime
+from masks import get_mask_card_number, get_mask_account
 
 
 def mask_account_card(info: str) -> str:
@@ -10,10 +11,10 @@ def mask_account_card(info: str) -> str:
     """ Проверяем, относится ли это к карте или счету """
     if type_.lower().startswith("счет"):
         """Маскировка для счета"""
-        masked_number = "**" + number[-4:]
+        masked_number = get_mask_account(number)
     else:
         """Маскировка для карты"""
-        masked_number = number[:4] + " " + number[4:6] + "** **** " + number[-4:]
+        masked_number = get_mask_card_number(number)
 
     """ Возврат замаскированной строки """
     return f"{type_} {masked_number}"
